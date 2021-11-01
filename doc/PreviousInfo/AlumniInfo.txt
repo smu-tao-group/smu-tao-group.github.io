@@ -1,0 +1,78 @@
+	  <div id="groupmemberdiv">
+      <p>&nbsp;</p> 
+        <h2 align=left> Postdoctoral Researcher</h2>
+      </div>
+       
+       <div id="groupmemberentry">
+        <div id="groupmember" style="display:inline-block;">
+         <div id="groupmembername">
+          Robert Kalescky
+         </div>
+         <p>&nbsp;</p> 
+         <div id="groupmemberinfo">
+           Postdoctoral Fellow<br>
+           Computational Chemistry <br>
+           Email: rkalescky<br>
+         </div>
+
+         <p>&nbsp;</p> 
+         <div id="groupmemberinfo">
+           Rob joined the Tao Research Group in Spring 2014 as a post doctoral researcher after completing his Ph.D. studies in Chemistry at SMU in the CATCO group working with Dr. Kraka and Dr. Cremer. He received his B.S. in Chemical Engineering in 2006 from Texas Tech Univeristy and his M.S. in Chemistry in 2009 from the University of Texas at Dallas. Rob’s computational research has spanned multiple size and time scales ranging from continuous fluid dynamics to course-grained and atomistic molecular dynamics to quantum mechanics based simulations. He uses rigid body methods to study allostery and direct path simulations to study reaction mechanisms in biological systems. <br>
+          </div>
+          <p>&nbsp;</p> 
+          <p>&nbsp;</p> 
+          <p>&nbsp;</p>
+        </div> <!-- Rob -->
+ 	   <div id="groupmemberimg" >    	
+          <img style="max-width:95%;"  src="image/people/groupmembers/Kalescky.jpg" alt="Rob" width="168" height="193" align=right>
+       </div>
+       <p>&nbsp;</p> 
+     </div><!--for <div id="groupmemberentry">-->
+      
+	  
+       <div id="groupmemberentry">
+        <div id="groupmember"  style="display:inline-block;">
+          <div id="groupmembername">
+           Ashleigh Miller  
+          </div>
+          <p>&nbsp;</p> 
+        <div id="groupmemberinfo">
+          Joint with Prof. Alex Lippert<br>
+          Email: ashleighm<br>
+        </div>
+         <p>&nbsp;</p> 
+        <div id="groupmemberinfo">
+        Ashleigh is currently an undergraduate student majoring in Biology. She joined the lab in the Fall of 2013 and is currently working with Camille Biard on the computational analysis of the chemiluminescence of 1,2-dioxetanes. When not working, she enjoys watching Star Trek and being outdoors. She aspires to eventually earn a PhD and incorporate her love for physics and programming into research on the effects of microbial systems on the planet.
+        </div>
+         <p>&nbsp;</p> 
+         <p>&nbsp;</p> 
+         <p>&nbsp;</p> 
+        </div> <!-- Ashleigh -->
+  	   <div id="groupmemberimg" >    	
+           <img style="max-width:95%;"  src="image/people/groupmembers/ashleigh.jpg" alt="Ashleigh" width="143" height="191" align=right>
+        </div>
+      </div>    <!--for <div id="groupmemberentry">-->   
+	  
+	  
+       <div id="groupmemberentry">
+        <div id="groupmember"  style="display:inline-block;">
+          <div id="groupmembername">
+           Joon Yong Moon  
+          </div>
+          <p>&nbsp;</p> 
+        <div id="groupmemberinfo">
+          B.S. Biochemistry, Mathematics and Spanish Minor<br>
+          Email: joonyongm<br>
+        </div>
+        <p>&nbsp;</p> 
+        <div id="groupmemberinfo">
+        Joon Moon is currently an undergraduate student majoring in Biochemistry. He joined the lab during the Fall of 2013 and is currently working with Yazen to study the reaction mechanism for the autoxidation of nitric oxide. In his spare time, he works at the Dallas Internal Medicine Group under Dr. Fischer and volunteers at Hospice Plus.       </div>
+        <p>&nbsp;</p> 
+        <p>&nbsp;</p> 
+        <p>&nbsp;</p> 
+        </div> <!-- Ashleigh -->
+  	   <div id="groupmemberimg" >    	
+           <img style="max-width:95%;"  src="image/people/groupmembers/Joon.jpg" alt="Joon" width="200" height="150" align=right>
+        </div>
+      </div>    <!--for <div id="groupmemberentry">-->   
+	  
