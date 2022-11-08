@@ -1,0 +1,14 @@
+Hrmstr1    S    O   194.8000     1.8020
+Hrmstr1    S   CA   277.9000     1.7390
+Hrmstr1    S   HS   286.4000     1.3530
+Hrmstr1   CA   OS   372.4000     1.3730
+HrmBnd1    N   CT   HC     0.0000     0.0000
+HrmBnd1   CT    S    O     0.0000     0.0000
+HrmBnd1   CT    S   CA     0.0000     0.0000
+HrmBnd1   CT    S   HS     0.0000     0.0000
+HrmBnd1    S   CA   CA    62.2000   122.5500
+HrmBnd1    O    S    O     0.0000     0.0000
+HrmBnd1    O    S   CA     0.0000     0.0000
+HrmBnd1    O    S   HS     0.0000     0.0000
+HrmBnd1   CA   CA   OS    69.8000   119.2000
+HrmBnd1   CA   OS   CA    63.6000   118.9600

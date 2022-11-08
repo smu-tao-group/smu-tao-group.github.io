@@ -1,0 +1,25 @@
+=================================================
+Output for block 1: Example
+Absolute values in Hartee:
+            ONIOM Total	              Model High	               Model Low	                Real Low	          Real-Model Low
+
+01_3_R_Th.log  
+           -3861.352671	            -3827.772029	               -0.250204	              -33.830845	              -33.580642
+
+02_3_TS_Th.log
+           -3861.312040	            -3827.731645	               -0.091761	              -33.672155	              -33.580395
+
+-------------------------------------------------
+Relative values in kcal/mol:
+
+            ONIOM Total	              Model High	               Model Low	                Real Low	          Real-Model Low
+
+01_3_R_Th.log  
+               0.000000	                0.000000	                0.000000	                0.000000	                0.000000
+
+02_3_TS_Th.log
+              25.496088	               25.340972	               99.424437	               99.579553	                0.155116
+
+=================================================
+
+

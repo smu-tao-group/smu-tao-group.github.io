@@ -1,0 +1,1558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0069)Software/oniomtoolTAO/TAOtutorial.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  
+  <title>TAO - a Toolkit to Assist ONIOM calculation</title>
+</head>
+<body>
+<h1 style="text-align: center;">QM/MM Study Tutorial using
+GaussView, Gaussian, and TAO package</h1>
+<h1 style="text-align: center;"><small><small style="font-weight: normal;">Peng Tao<sup>a</sup> and H. Bernhard Schlegel<sup>b</sup></small></small></h1>
+
+<h1 style="text-align: center;"><small><small><span style="font-weight: normal;"><sup>a</sup>Department
+  of Chemistry, Southern Methodist University, 3215 Daniel Avenue, Dallas, Texas 75275</span></small></small>
+
+<h1 style="text-align: center;"><small><small><span style="font-weight: normal;"><sup>b</sup>Department
+  of Chemistry, </span>
+  <st1:place style="font-weight: normal;" w:st="on"><st1:placename w:st="on">Wayne</st1:placename>
+  <st1:placename w:st="on">State</st1:placename> <st1:placetype w:st="on">University</st1:placetype></st1:place><span style="font-weight: normal;">,
+  </span><st1:street style="font-weight: normal;" w:st="on">5101 Cass Ave</st1:street><span style="font-weight: normal;">,
+  </span><st1:city style="font-weight: normal;" w:st="on">Detroit</st1:city><span style="font-weight: normal;">, </span><st1:state style="font-weight: normal;" w:st="on">Michigan</st1:state><span style="font-weight: normal;">
+  48202</span></small></small>
+  <st1:postalcode w:st="on"></st1:postalcode>
+</h1>
+<p>
+  <st1:address w:st="on"></st1:address>
+  <span style=""></span>ptao -AT- smu DOT edu<br>
+
+</p>
+<p>Download <a href="taopackage.tgz">TAO package</a> and <a href="taoexamplefiles.tgz">tutorial files</a>.<br style="page-break-before: always;" clear="all">
+  <span style="font-size: 12pt; line-height: 150%; font-family: Times;"></span>
+</p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Introduction<o:p></o:p></span></b></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This
+tutorial is the supporting information for the article �</span><a href="http://faculty.smu.edu/ptao/doc/publication/12.pdf">A
+Toolkit to
+Assist ONIOM Calculations</a><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">�
+(TAO) by </span><span style="">Peng Tao and H. Bernhard Schlegel. This
+tutorial has been developed to
+demonstrate the general procedure for a quantum mechanics / molecular
+mechanics
+(QM/MM) study of a biochemical system using</span> Gaussian, GaussView
+and the TAO
+package. The example used in this tutorial is the inhibition mechanism
+of
+matrix metalloproteinase 2 (MMP2) by a selective inhibitor <span style="line-height: 150%;">(4-phenoxyphenylsulfonyl)methylthiirane
+(</span>
+<st1:street w:st="on"><st1:address w:st="on"><span style="">SB-3CT</span></st1:address></st1:street><span style="">). This QM/MM study was described in the article <a href="http://faculty.smu.edu/ptao/doc/publication/8.pdf">�</a></span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><a href="http://faculty.smu.edu/ptao/doc/publication/8.pdf">Matrix
+Metalloproteinase 2 Inhibition: Combined Quantum Mechanics and
+Molecular
+Mechanics Studies of the Inhibition Mechanism of
+(4-Phenoxyphenylsulfonyl)methylthiirane and Its Oxirane
+Analogue.� <i style="">Biochemistry</i> <b style="">2009</b>, <i style="">48</i>, 9839-9847.</a><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+This
+tutorial is designed for users who are familiar with general use of
+Gaussian,
+GaussView and Unix/Linux, and who are planning to conduct QM/MM studies
+of
+biological systems using the ONIOM method available in the Gaussian
+package. For
+more details, please refer to the user manuals and information about
+general usage
+of Gaussian, GaussView and Unix/Linux system. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">In this tutorial, we use the MMP2�<st1:street w:st="on"><st1:address w:st="on">SB-3CT</st1:address></st1:street> complex to
+demonstrate ONIOM input job preparation, job monitoring, production
+calculations, and analysis carried out in a typical QM/MM study. In
+particular,
+the structure of the reactant complex is optimized in this tutorial.
+The
+initial structure for the complex was generated from docking and
+molecular
+dynamics (MD) studies of <st1:street w:st="on"><st1:address w:st="on">SB-3CT</st1:address></st1:street>
+with the crystal structure of MMP2. The preprocess stage described in
+the
+article is not part of this tutorial. The details of the preprocess
+using the molecular
+dynamics package AMBER can be found in the computational method session
+of the <i style="">Biochemistry</i> article. For more
+information about molecular mechanics simulations of biomolecules,
+please refer
+to the AMBER website (</span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><a href="http://ambermd.org/">http://ambermd.org/</a>)</span><span style=""> or related books (e.g. Schlick, T. (2002). <i style="">Molecular
+Modeling and Simulation, An
+Interdisciplinary Guide</i>, </span>Springer<span style="">).<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">The structure of the MMP2�<st1:street w:st="on"><st1:address w:st="on">SB-3CT</st1:address></st1:street> complex with necessary
+water
+solvent molecules from the preprocess treatment is stored in PDB file, <a href="tutorialfiles/01preparation/mmp2_full_r.pdb.txt"><i style="">mmp2_full_r.pdb</i></a>.
+This file served as the
+starting structure for <b style="">3&#8209;R</b> in Figure
+5 in the <i style="">Biochemistry</i> paper.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">Currently the TAO package is available and
+tested for any Unix/Linux platform with PERL installed. It can also be
+run on
+either Windows or Mac with PERL installed. Users are advised to work
+through
+this tutorial under the Unix/Linux environment and use a text editor to
+view
+and modify the Gaussian ONIOM job files. The example used in this
+tutorial came
+from an actual research project. The sizes of the protein model and job
+files
+are not small. This could be cumbersome for beginners of Gaussian and
+ONIOM. However,
+the authors believe that using an example from a real study could help
+users to
+find the best way to conduct their own research, and shows the
+usefulness and
+effectiveness of the toolkit. Please note that all the calculations
+shown in
+this tutorial are for demonstration purposes only, and a low level of
+theory is
+chosen so that calculations are relatively fast. For publication
+quality
+calculations, users should consult related references for the
+appropriate level
+of theory for their own studies.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">When using text files to run Gaussian
+calculation on Unix/Linux, please make sure these files are in
+Unix/Linux text
+format (with </span><span style="">line break</span>
+or <span style="">end-of-line recognized by </span><span style="">Unix/Linux
+systems). Otherwise, these files
+cannot be run properly on Unix/Linux platforms.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">For any of the tools available from the TAO
+package, typing the command by itself will display brief information
+about that
+command. Typing the command with the flag <b style="">-h</b>
+or <b style="">--help</b> will display a detailed UNIX
+style manual page for that command.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">The user must have access to Gaussian and
+GaussView. TAO is compatible with Gaussian (versions 03 and 09), and
+GaussView (versions
+3 to 5). Gaussian 09 is used to carry out calculations in this
+tutorial. To
+start this tutorial, the user needs to obtain a copy of TAO (available
+from </span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><a href="http://faculty.smu.edu/ptao/software.html">http://faculty.smu.edu/ptao/software.html</a></span><span style="">), and install it on the system they are
+using. Please refer to the installation guide of the TAO package. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">In this tutorial, all the file names are in
+italic, and command names and flags are in bold. Example command lines
+are in
+blue. The example command output and file contents are in smaller font
+than
+regular text.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="font-family: &quot;Times New Roman&quot;;">ONIOM
+input preparation<o:p></o:p></span></b></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">I.
+Initial Gaussian job preparation<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="">The user should copy the file <i style="">mmp2_full_r.pdb</i>
+and <i style="">corelist.txt</i> into their working directory. These
+two files and
+other files which will be generated by the user following this tutorial
+are
+available from </span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><a href="http://faculty.smu.edu/ptao/software.html">http://faculty.smu.edu/ptao/software.html</a></span><span style="">.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+program <b style="">pdb2oniom</b> was used to
+generate a preliminary ONIOM input file from the PDB file </span><a href="tutorialfiles/01preparation/mmp2_full_r.pdb.txt"><i style=""><span style="">mmp2_full_r.pdb</span></i></a><span style="">. To
+run this program, a file with a core
+residue list is needed. In this case, the core residue list, <a href="tutorialfiles/01preparation/corelist.txt"><i style="">corelist.txt</i></a>,
+reads:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">[INH]
+"339"<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">[ZN]
+"335"<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">[HID]
+"288"<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">[HID]
+"292"<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">[HID]
+"298"<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">[GLU]
+"289"<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Core
+residues in this example include the inhibitor, the
+active site zinc, three histidine residues and one glutamic acid
+residue. Both
+the residue name (in square bracket) and index number (in double
+quotation
+marks) are needed to identify each core residue. The following command
+uses <b style="">pdb2oniom</b> to generate a preliminary
+ONIOM input file with all residues containing any atom within 6 �
+from any atom
+in the core residues allowed to move during optimization:<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">pdb2oniom</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-o</b> <i style="">mmp2_full_r.gjf
+</i><span style="">&nbsp;</span><b style="">-resid</b>
+<i style="">corelist.txt</i> <span style="">&nbsp;</span><b style="">-near
+</b><i style="">6</i> <span style="">&nbsp;</span><b style="">�i</b>
+<i style="">mmp2_full_r.pdb</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">For the</span><i style=""><span style=""> <a href="tutorialfiles/01preparation/mmp2_full_r.pdb.txt">mmp2_full_r.pdb</a></span></i><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+input file, this command produces the following output.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Core
+residues list file
+corelist.txt provided.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">All
+residues within 6
+angstroms from core region are free to move (0) during geometry
+optimization.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Atom
+type cannot be
+assigned to atom H1 in residue <st1:place w:st="on">LYS</st1:place> 1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Partial
+charge cannot
+be assigned to atom H1 in residue <st1:place w:st="on">LYS</st1:place>
+1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Element
+type cannot be
+decided for atom H1 in residue <st1:place w:st="on">LYS</st1:place> 1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Atom
+type cannot be
+assigned to atom H2 in residue <st1:place w:st="on">LYS</st1:place> 1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Partial
+charge cannot
+be assigned to atom H2 in residue <st1:place w:st="on">LYS</st1:place>
+1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Element
+type cannot be
+decided for atom H2 in residue <st1:place w:st="on">LYS</st1:place> 1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Atom
+type cannot be
+assigned to atom H3 in residue <st1:place w:st="on">LYS</st1:place> 1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Partial
+charge cannot
+be assigned to atom H3 in residue <st1:place w:st="on">LYS</st1:place>
+1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Element
+type cannot be
+decided for atom H3 in residue <st1:place w:st="on">LYS</st1:place> 1.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Atom
+type cannot be
+assigned to atom OXT in residue PRO 334.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Partial
+charge cannot
+be assigned to atom OXT in residue PRO 334.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Element
+type cannot be
+decided for atom OXT in residue PRO 334.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Residue<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>ZN does not exist in
+database. Atom with
+name<span style="">&nbsp;&nbsp;&nbsp; </span>ZN may not be defined.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Residue<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>ZN does not exist in
+database. Atom with
+name<span style="">&nbsp;&nbsp;&nbsp; </span>ZN may not be defined.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Residue<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>KA does not exist in
+database. Atom with
+name<span style="">&nbsp;&nbsp;&nbsp; </span>KA may not be defined.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Residue<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>KA does not exist in
+database. Atom with
+name<span style="">&nbsp;&nbsp;&nbsp; </span>KA may not be defined.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">There
+are 1599 residues
+in the PDB file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Write
+ONIOM input file
+mmp2_full_r.gjf from PDB file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Opening
+file
+mmp2_full_r.gjf for output ...<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Successfully
+wrote
+mmp2_full_r.gjf file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 10pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Two
+files are generated: <a href="tutorialfiles/01preparation/mmp2_full_r.gjf.txt"><i style="">mmp2_full_r.gjf</i></a>
+and <a href="tutorialfiles/01preparation/mmp2_full_r.gjf.onb.txt"><i style="">mmp2_ full_r.gjf.onb</i></a>. <a href="tutorialfiles/01preparation/mmp2_full_r.gjf.txt"><i style="">mmp2_full_r.gjf</i></a>
+is a Gaussian input
+file. The other file, <a href="tutorialfiles/01preparation/mmp2_full_r.gjf.onb.txt"><i style="">mmp2_full_r.gjf.onb</i></a>,
+has both atom and residue information, and will be needed for later use
+in the
+production stage. Some atoms in residues Lys1 and Pro334 cannot be
+processed
+correctly, because these two residues are the N- and C-terminal
+residues. The
+names and atom types for the three hydrogens in the protonated
+N-terminal amine
+group in Lys1 and the oxygen in the unprotonated C-terminal carboxylate
+group
+in Pro334 cannot be assigned, and need to be fixed manually. Residue ZN
+and KA
+are zinc and calcium, respectively. The missing parameters need to be
+added for
+them as well. The correct parameters for these atoms are obtained from
+the
+related AMBER force field and are given in <a href="tutorialfiles/01preparation/mmp2_full_r_02.gjf.txt"><i style="">mmp2_full_r_02.gjf</i></a>.
+Please note that the partial charges for the other atoms in the
+terminal
+residues also need to be changed since charge distributions are
+different for internal
+and terminal residues. <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+inhibitor <st1:street w:st="on"><st1:address w:st="on">SB-3CT</st1:address></st1:street>
+(residue SB3 in the PDB file) is recognized by <b style="">pdb2oniom</b>,
+because its PREP file, <a href="tutorialfiles/otherfiles/SB3_resp_int.prep.txt"><i style="">SB3_resp_int.prep</i></a>,
+is available
+in the ESPT/prepfiles folder of the
+TAO package. This file was generated during the preprocess stage using
+the
+AMBER program suite. For more information about this file format,
+please refer
+to the AMBER manual which can be obtained from <a href="http://ambermd.org/">http://ambermd.org</a>.
+Users can
+put PREP files for any substrates in their systems in the same folder. <b style="">pdb2oniom</b> automatically reads these
+files and processes corresponding residues in the PDB input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+Gaussian job file generated by <b style="">pdb2oniom</b>
+does not contain a connectivity table. This table can be generated by
+GaussView
+by reading <a href="tutorialfiles/01preparation/mmp2_full_r_02.gjf.txt"><i style="">mmp2_full_r_02.gjf</i></a>, and
+saving to another Gaussian input file<i style=""> <a href="tutorialfiles/01preparation/mmp2_full_r_03.gjf.txt">mmp2_full_r_03.gjf</a></i>.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Since
+the full system of MMP2 with water molecules is rather large (~8800
+atoms), it
+is convenient for structure manipulation to build a reduced size
+(partial)
+model for preliminary calculations. The partial system can be built
+using any
+software that users are comfortable with, such as VMD, PyMol, etc. The
+program <b style="">pdbcore</b> can also be used to generate a
+partial model system. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">pdbcore</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-o</b> <i style="">mmp2_partial_r.pdb</i>
+<span style="">&nbsp;</span><b style="">-resid</b>
+<i style="">corelist.txt</i> <span style="">&nbsp;</span><b style="">-near
+</b><i style="">12</i> <span style="">&nbsp;</span><b style="">-i</b> <i style="">mmp2_full_r.pdb</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This
+command generates partial model, <a href="tutorialfiles/01preparation/mmp2_partial_r.pdb.txt"><i style="">mmp2_partial_r.pdb</i></a>,
+containing all the
+residues within 12 � of the core residues. Both the full model, <a href="tutorialfiles/01preparation/mmp2_full_r.pdb.txt"><i style="">mmp2_full_r.pdb</i></a>,
+and the partial model, <a href="tutorialfiles/01preparation/mmp2_partial_r.pdb.txt"><i style="">mmp2_partial_r.pdb</i></a>,
+are illustrated in
+Figure S1.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">A Gaussian
+ONIOM job file needs to be generated for the
+partial model similarly to the full model.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">pdb2oniom</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-o</b> <i style="">mmp2_partial_r.gjf</i>
+<span style="">&nbsp;</span><b style="">-resid</b>
+<i style="">corelist.txt</i> <span style="">&nbsp;</span><b style="">-near
+</b><i style="">6</i> <span style="">&nbsp;</span><b style="">-i</b> <i style="">mmp2_partial_r.pdb</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><a href="tutorialfiles/01preparation/mmp2_partial_r.gjf.txt"><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">mmp2_partial_r.gjf</span></i></a><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+then needs to be modified for correct atom types and charges (<a href="tutorialfiles/01preparation/mmp2_partial_r_02.gjf.txt"><i style="">mmp2_partial_r_02.gjf</i></a>),
+and the connectivity
+table must be added using GaussView, (<a href="tutorialfiles/01preparation/mmp2_partial_r_03.gjf.txt"><i style="">mmp2_partial_r_03.gjf</i></a>).<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">If the core
+residue file is not provided, no atoms in the
+Gaussian input file will be marked as frozen for the optimization. <o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">II. QM
+region setup<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The next
+step is to use GaussView to set up the QM region in
+both the partial model (<a href="tutorialfiles/01preparation/mmp2_partial_r_04.gjf.txt"><i style="">mmp2_partial_r_04.gjf</i></a>)
+and the full size model (<a href="tutorialfiles/01preparation/mmp2_full_r_04.gjf.txt"><i style="">mmp2_full_r_04.gjf</i></a>)
+(Figure S2). Users can use Layer Selection Tool from GaussView (choose
+Edit
+-&gt; Select Layer�) to set up desired QM region. Please refer
+to GaussView
+manual for more information.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+<img style="width: 300px; height: 304px;" alt="Figure S1 a (full size model)" src="./TAOpackage_files/FigureS1_FullModel.jpg">
+<img style="width: 300px; height: 304px;" alt="Figure S1 b (partial model)" src="./TAOpackage_files/FigureS1_PartialModel.jpg"><br>
+</p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&nbsp; &nbsp; &nbsp; &nbsp;a.<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>b.</p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;">Figure
+S1. Model systems for the QM/MM
+tutorial. (a) full size model; (b) partial model.</p>
+<span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span>&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="font-family: &quot;Times New Roman&quot;;"><img style="width: 300px; height: 257px;" alt="Figure S2 a (full model)" src="./TAOpackage_files/FigureS2_FullModel_ZoomOut.jpg"> &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; <img style="width: 300px; height: 257px;" alt="Figure S2 b (full model closeup)" src="./TAOpackage_files/FigureS2_FullModel_ZoomIn.jpg"></span>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span><span style="font-family: &quot;Times New Roman&quot;;"> &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp;&nbsp;</span><span style=""></span><span style="">&nbsp;&nbsp;</span><span style="">&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; </span>a.<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="">&nbsp;</span><span style=""> &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>b.</p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;">&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img style="width: 300px; height: 257px;" alt="Figure S2 c (partial model)" src="./TAOpackage_files/FigureS2_PartialModel_ZoomOut.jpg"> &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img style="width: 300px; height: 257px;" alt="Figure S2 d (partial model closeup)" src="./TAOpackage_files/FigureS2_PartialModel_ZoomIn.jpg"></p>
+<p class="TAMainText" style="text-align: center; text-indent: 9pt; line-height: 150%; page-break-after: avoid;" align="center"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span></p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+</span>c.<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>d.</p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;">Figure
+S2. QM region for the full and
+partial model systems. (a) full model; (b) close up view of the QM
+region of
+the full model; (c) partial model; (d) close up view of the QM region
+of the partial
+model.</p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">III. ONIOM
+job files clean up<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Before
+running these Gaussian jobs, the connectivity of some
+atoms need to be fixed (e.g. the bonds shown in GaussView, see Figure
+S3). These
+connections can be detected using <b style="">checkconnect</b>.
+This program can help users to find atoms based on their numbers of
+connections
+in the connectivity table of a Gaussian input file. In most cases,
+metal ions
+are assigned multiple connections by GaussView. These connections need
+to be
+removed for proper behavior in the MM part of the ONIOM calculations.
+This program
+also detects all the isolated atoms as a sanity check.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-align: center; text-indent: 9pt; line-height: 150%; page-break-after: avoid;" align="center"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span><span style="font-family: &quot;Times New Roman&quot;;"></span></p>
+<p class="TAMainText" style="text-align: center; text-indent: 9pt; line-height: 150%; page-break-after: avoid;" align="center"><span style="font-family: &quot;Times New Roman&quot;;"></span></p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;">&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style=""><img style="width: 300px; height: 257px;" alt="Figure S3 a (zinc ion in QM region)" src="./TAOpackage_files/FigureS3_ZnBonds.jpg"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;<img style="width: 300px; height: 257px;" alt="Figure S3 b (calcium ion)" src="./TAOpackage_files/FigureS3_CaBonds.jpg"></span></p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+</span>a.<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>b.</p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;">Figure
+S3. Connections which need to
+be removed for ONIOM calculations. (a) zinc ion in QM region (purple)
+with two
+connections; (b) a calcium ion (highlighted and labeled as [1]) with
+six connections.
+</p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><o:p>&nbsp;</o:p></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;">Using <b style="">checkconnect</b>
+program to check the
+Gaussian input file of the partial model:</p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><b style=""><span style="color: rgb(51, 102, 255);">checkconnect </span></b><span style="color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_partial_r_04.gjf</i>
+<b style="">�c</b> <i style="">5</i></span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Part of the
+output reads:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Opening
+mmp2_partial_r_04.gjf for processing...<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Treat
+the file as a
+Gaussian input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">This
+is an ONIOM input
+file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">There
+are 2493 atoms.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Atom
+1605 (Zn) has 5
+connections.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Atom
+1606 (Ca) has 6
+connections.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This
+shows that atoms 1605 (zinc) and 1606 (calcium) have at least five
+connections
+(defined by flag <b style="">�c </b><i style="">5</i>) and need
+to be fixed. The connectivity
+of atom 1607 (calcium) also needs to be cleaned. The connectivity of
+calcium
+(1607) is 4, and can be displayed using flag <b style="">-c </b><i style="">4</i>. Since many carbons have
+four connections, extra caution is needed to identify this. The
+corrected input
+file is saved to <a href="tutorialfiles/01preparation/mmp2_partial_r_05.gjf.txt"><i style="">mmp2_partial_r_05.gjf</i></a>.
+A similar process is needed for the full model input file, <a href="tutorialfiles/01preparation/mmp2_full_r_04.gjf.txt"><i style="">mmp2_full_r_04.gjf</i></a>,
+with new input in <a href="tutorialfiles/01preparation/mmp2_full_r_05.gjf.txt"><i style="">mmp2_full_r_05.gjf</i></a>.
+<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">To set up a
+Gaussian ONIOM job, the user needs to assign the
+net electric charge and spin multiplicity for each layer. The user can
+use <b style="">chargesum</b> to quickly add up the MM
+partial charges in each layer.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">chargesum</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_full_r_05.gjf
+</i><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The output
+reads:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Opening
+mmp2_full_r_05.gjf for process<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Given
+file
+mmp2_full_r_05.gjf is not Gaussian log file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Treat
+it as Gaussian
+input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Total
+charge of real
+system is -11.721594.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Total
+charge of high
+layer is<span style="">&nbsp;&nbsp; </span>0.355254.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Total
+charge of medium
+layer is<span style="">&nbsp;&nbsp; </span>0.000000.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Total
+charge of low
+layer is -12.076848.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Total
+charge of high
+plus medium layer is<span style="">&nbsp;&nbsp; </span>0.355254.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Dipole
+moment (Debye) (X,
+Y, Z) is <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">(<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>-2484.0827,<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-3100.5310,<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-2279.4550).<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Total
+Dipole moment
+(Debye) is<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>4580.3793.<span style="background: silver none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><o:p></o:p></span></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 10pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Since we
+did not add counter ions to this protein, the total
+charge of the whole protein is not zero. Due to the setup of the QM
+region
+(with covalent bonds across the QM/MM boundary), the total charge of
+the QM
+region is not an integer. The QM region should carry a net charge of
++1,
+because the zinc ion has a +2 charge, and the glutamate side chain has
+a �1
+charge. The charge and spin multiplicity for the full protein model
+ONIOM job
+is<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">-11 1 1 1 1 1<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The first
+pair of numbers, �11 and 1, are the charge and
+spin multiplicity for the low level of theory (MM in this case)
+calculation of the
+real system (including both QM and MM regions in this case). The second
+pair of
+numbers, 1 and 1, are the charge and spin multiplicity for high level
+of theory
+(QM) calculation of the model system (QM region in this case). The
+third pair
+of numbers, 1 and 1, are the charge and spin multiplicity for the low
+level of
+theory (MM) calculation of the model system (QM region). Please refer
+to the
+Gaussian manual for more detailed information.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">For the
+partial model system, we have <o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">-3 1 1 1 1 1<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">For the
+next step, the command line for each ONIOM job needs
+to be changed to the following:<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="font-size: 9pt; line-height: 150%; font-family: Arial; color: rgb(41, 41, 41);">#p
+oniom(pm3:amber=hardfirst) nosymm geom=connectivity
+iop(2/15=3) test opt=quadmac<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The PM3
+semi-empirical level of theory is used for the QM
+region to reduce the computational time in this tutorial. Users should
+use a
+more suitable level of theory for their research. Memory and number of
+CPUs also
+need to be changed to values appropriate for the level of theory. <span style="">&nbsp;</span>Please refer the Gaussian manual for details
+of the job setup. The checkpoint file name should be modified as well. <a href="tutorialfiles/01preparation/mmp2_partial_r_06.gjf.txt"><i style="">mmp2_partial_r_06.gjf</i></a>
+was used for the
+Gaussian run.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">From this
+point forward, we will use the partial model
+system to carry out the calculations. Once we have identified the key
+structures, (e.g. reactant, transition state (TS), product etc.) we can
+construct
+inputs for the full systems using the partial models.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">IV. Missing
+parameters lookup<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+Gaussian job <a href="tutorialfiles/01preparation/mmp2_partial_r_06.gjf.txt"><i style="">mmp2_partial_r_06.gjf</i></a>
+fails
+with a complaint about missing parameters in the log file <a href="tutorialfiles/01preparation/mmp2_partial_r_06.log.txt"><i style="">mmp2_partial_r_06.log</i></a>:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;</span>Read
+MM parameter file:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Define ZN<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Define C0<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>2<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Include all MM classes<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Bondstretch undefined between atoms<span style="">&nbsp;&nbsp;
+</span>1617<span style="">&nbsp;&nbsp;
+</span>1618 S-O [H,H] *<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Bondstretch undefined between atoms<span style="">&nbsp;&nbsp;
+</span>1617<span style="">&nbsp;&nbsp;
+</span>1619 S-O [H,H] *<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Bondstretch undefined between atoms<span style="">&nbsp;&nbsp;
+</span>1617<span style="">&nbsp;&nbsp;
+</span>1620 S-CA [H,L]<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>�<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>�<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Angle bend<span style="">&nbsp;
+</span>undefined between atoms<span style="">&nbsp;&nbsp;
+</span>1630<span style="">&nbsp;&nbsp; </span>1631<span style="">&nbsp;&nbsp;
+</span>1632 OS-CA-CA [L,L,L]<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Angle bend<span style="">&nbsp;
+</span>undefined between atoms<span style="">&nbsp;&nbsp;
+</span>1630<span style="">&nbsp;&nbsp; </span>1631<span style="">&nbsp;&nbsp;
+</span>1640 OS-CA-CA [L,L,L]<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>* These undefined terms cancel in the ONIOM
+expression.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>MM function not complete<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Error termination via Lnk1e in
+XXXXXXXXXXXXXX/g09/l101.exe
+at XXXXXXXXXXXXXX 2009.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Job cpu time:<span style="">&nbsp;
+</span>0 days<span style="">&nbsp; </span>0 hours<span style="">&nbsp;
+</span>0 minutes<span style="">&nbsp;
+</span>1.8 seconds.<span style="">&nbsp;&nbsp; </span><o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>File lengths (MBytes):<span style="">&nbsp; </span>RWF=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>5 Int=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0
+D2E=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0 Chk=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1 Scr=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1 <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This error
+message tells us that the MM parameters for zinc
+and calcium and numerous other MM parameters are missing from the input
+file.
+These parameters can be found in the AMBER force field file and need to
+be
+added at the end of the Gaussian input file. The parameters for zinc
+and
+calcium are<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">VDW<span style="">&nbsp;&nbsp;&nbsp; </span>Zn<span style="">&nbsp;
+</span>1.10<span style="">&nbsp;&nbsp;&nbsp; </span>0.0125<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-bottom: 6pt; line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">VDW<span style="">&nbsp;&nbsp;&nbsp; </span>C0<span style="">&nbsp;
+</span>1.7131<span style="">&nbsp; </span>0.459789<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+<b style="">parmlookup</b> program can be used to
+look up these missing parameters from AMBER force field files.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">parmlookup</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_partial_r_06.log</i>
+<span style="">&nbsp;</span><b style="">-o</b> <i style="">mmp2_partial_r_06_parm.txt<o:p></o:p></i></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The missing
+parameters are listed in the output file, <a href="tutorialfiles/01preparation/mmp2_partial_r_06_parm.txt"><i style="">mmp2_partial_r_06_parm.txt</i></a>,
+in the
+format used by Gaussian.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Hrmstr1<span style="">&nbsp;&nbsp;&nbsp; </span>S<span style="">&nbsp;&nbsp;&nbsp;
+</span>O<span style="">&nbsp;&nbsp; </span>194.8000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1.8020<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Hrmstr1<span style="">&nbsp;&nbsp;&nbsp; </span>S<span style="">&nbsp;&nbsp;
+</span>CA<span style="">&nbsp;&nbsp; </span>277.9000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1.7390<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Hrmstr1<span style="">&nbsp;&nbsp;&nbsp; </span>S<span style="">&nbsp;&nbsp;
+</span>HS<span style="">&nbsp;&nbsp; </span>286.4000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1.3530<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Hrmstr1<span style="">&nbsp;&nbsp; </span>CA<span style="">&nbsp;&nbsp;
+</span>OS<span style="">&nbsp;&nbsp; </span>372.4000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1.3730<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp;&nbsp; </span><st1:place w:st="on">N<span style="">&nbsp;&nbsp; </span>CT</st1:place><span style="">&nbsp;&nbsp;
+</span>HC<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><st1:street w:st="on"><st1:address w:st="on"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp; </span>CT</span></st1:address></st1:street><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;&nbsp;&nbsp; </span>S<span style="">&nbsp;&nbsp;&nbsp;
+</span>O<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp; </span>CT<span style="">&nbsp;&nbsp;&nbsp; </span><st1:place w:st="on">S<span style="">&nbsp;&nbsp; </span>CA</st1:place><span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><st1:street w:st="on"><st1:address w:st="on"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp; </span>CT</span></st1:address></st1:street><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;&nbsp;&nbsp; </span>S<span style="">&nbsp;&nbsp;
+</span>HS<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp;&nbsp; </span><st1:place w:st="on">S<span style="">&nbsp;&nbsp; </span>CA</st1:place><span style="">&nbsp;&nbsp;
+</span>CA<span style="">&nbsp;&nbsp;&nbsp;
+</span>62.2000<span style="">&nbsp;&nbsp; </span>122.5500<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp;&nbsp; </span>O<span style="">&nbsp;&nbsp;&nbsp;
+</span>S<span style="">&nbsp;&nbsp;&nbsp; </span>O<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp;&nbsp; </span>O<span style="">&nbsp;&nbsp;&nbsp;
+</span><st1:place w:st="on">S<span style="">&nbsp;&nbsp; </span>CA</st1:place><span style="">&nbsp;&nbsp;&nbsp;&nbsp; </span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp;&nbsp; </span>O<span style="">&nbsp;&nbsp;&nbsp;
+</span>S<span style="">&nbsp;&nbsp; </span>HS<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.0000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp; </span>CA<span style="">&nbsp;&nbsp;
+</span>CA<span style="">&nbsp;&nbsp; </span>OS<span style="">&nbsp;&nbsp;&nbsp;
+</span>69.8000<span style="">&nbsp;&nbsp;
+</span>119.2000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">HrmBnd1<span style="">&nbsp;&nbsp; </span>CA<span style="">&nbsp;&nbsp;
+</span>OS<span style="">&nbsp;&nbsp; </span>CA<span style="">&nbsp;&nbsp;&nbsp;
+</span>63.6000<span style="">&nbsp;&nbsp;
+</span>118.9600<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Some
+of the parameters cannot be found by <b style="">parmlookup</b>
+in the AMBER force field and are set to zero in the output. Values for
+these
+missing parameters can be estimated by looking up the corresponding
+parameters
+for similar atom types. This process may need to be repeated several
+times
+until all the parameters are provided.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+user may also encounter the following error message (shown in <a href="tutorialfiles/01preparation/mmp2_partial_r_06_02.log.txt"><i style="">mmp2_partial_r_06_02.log</i></a>)<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">The
+combination of
+multiplicity 1 and<span style="">&nbsp; </span>3505 electrons is
+impossible.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);">Error
+termination via
+Lnk1e in XXXXXXXXXXXXXX/g09/l101.exe at XXXXXXXXXXXXXX 2009.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>Job cpu time:<span style="">&nbsp;
+</span>0 days<span style="">&nbsp; </span>0 hours<span style="">&nbsp;
+</span>0 minutes<span style="">&nbsp;
+</span>2.1 seconds.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial; color: rgb(41, 41, 41);"><span style="">&nbsp;</span>File lengths (MBytes):<span style="">&nbsp; </span>RWF=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;
+</span>52 Int=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0
+D2E=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>0 Chk=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>1 Scr=<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>1<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-bottom: 6pt; line-height: normal; page-break-after: avoid;"><span style="font-size: 10pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This is
+because a total charge of �3 is assigned to the
+whole system, but this does not correspond to a closed shell
+configuration. The
+user needs to adjust them to appropriate values. After using <b style="">chargesum</b> to check total charges, a
+charge of �2 and a multiplicity of 1 are used. Following this
+correction, still
+one more round of parameter look up is needed. The final working
+Gaussian job
+file is <a href="tutorialfiles/01preparation/mmp2_partial_r_07.gjf.txt"><i style="">mmp2_partial_r_07.gjf</i></a>.</span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">ONIOM
+Job Monitoring</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Actively
+monitoring running ONIOM jobs can
+save a tremendous amount of time and computational resources. Program <b style="">oniomlog</b> was developed for this
+purpose.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">I. Check
+energies<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">When
+an ONIOM geometry optimization job is running, this program can be used
+to
+check its progress. <a href="tutorialfiles/02monitor/mmp2_partial_r_07_part.log.gz"><i style="">mmp2_partial_r_07_part.log</i></a>
+is an unfinished geometry optimization log file. The following command
+produces
+a summary of the energies in the log file.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomlog</span></b><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span></span></i><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-o <span style="">&nbsp;</span>-i</b><span style="">&nbsp; </span><i style="">mmp2_partial_r_07_part.log</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+output of this command reads:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Gaussian out file is
+mmp2_partial_r_07_part.log<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Optimization -o was used<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Final ONIOM energy report
+for a
+two-layer ONIOM calculation (hartree):<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>This corresponds to the last complete step of an unfinished
+geometry
+optimization job.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">High Level Model:<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.117316<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Low<span style="">&nbsp;
+</span>Level Model:<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-0.099033<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Low<span style="">&nbsp;
+</span>Level Real :<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-7.941107<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Low<span style="">&nbsp;
+</span>Level Real-Model :<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-7.842074<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">ONIOM Energy :<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-7.724758<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Dipole moment (Debye) (X,
+Y, Z) is <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">(<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-272.4224, <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-431.8687,<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>-519.2448).<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Total Dipole moment
+(Debye) is<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>728.2443.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Attention: this Gaussian
+calculation
+did not terminate normally!<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">OPT flag -o was turned on.
+Energy of
+each step will be printed.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Energies along the
+optimization path
+(kcal/mol):<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Step Number<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ONIOM<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>High Model<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Low (Real-Model)<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>1<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>139.704978<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>95.029033<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>44.675945<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>2<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>61.415425<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>70.264397<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-8.848971<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>3<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>44.086133<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>50.729131<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-6.642998<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>4<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>29.244689<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>33.199647<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-3.954959<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>5<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>19.479058<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>21.517017<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-2.037959<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>6<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>10.567483<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>11.196136<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-0.628653<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>7<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>4.583601<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>4.318795<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.264807<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;&nbsp;
+</span>8<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">There are 8 steps of
+optimization in
+this job.<o:p></o:p></span></p>
+<p class="TAMainText" style="page-break-after: avoid;"><span style="font-size: 9pt; line-height: 200%; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 10pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+ONIOM energy of the final step is displayed in hartree. The geometry
+optimization path is displayed at the end, because the flag <b style="">-o</b>
+is used. It shows that seven steps
+of the optimization were finished so far, because the step 1 is the
+initial
+structure. The ONIOM energy, QM region energy (high model) and
+contribution
+from the MM calculation, MM<sub>real</sub>-MM<sub>model</sub>
+(Low(real�model))
+are displayed in kcal/mol with the last step as reference. If the flag <b style="">-ha</b> is specified, all the energies are
+printed as total energies in hartree rather than relative energies in
+kcal/mol.
+From the energies, it is clear that the calculation is stepping toward
+a
+minimum.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">II. Check
+geometries<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This
+program can also extract certain parts of the structure along the
+optimization
+path for a quick check.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomlog</span></b><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+</span></i><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-s</b> <i style="">mmp2_partial_r_07_partqm.xyz</i><span style="">&nbsp; </span><b style="">-o <span style="">&nbsp;</span>-i</b>
+<i style="">mmp2_partial_r_07_part.log</i><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The QM
+region is extracted along the optimization path with
+flag <b style="">-o</b>, and saved to the file <a href="tutorialfiles/02monitor/mmp2_partial_r_07_partqm.xyz.txt"><i style="">mmp2_partial_r_07_partqm.xyz</i></a>
+in XYZ
+format. If flag <b style="">-o</b> is not given, only
+the last geometry will be saved.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomlog</span></b><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+</span></i><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-s</b> <i style="">mmp2_partial_r_07_partqmmov.xyz</i>
+<span style="">&nbsp;</span><b style="">-g
+<span style="">&nbsp;</span>-l </b><i style="">1</i><span style="">&nbsp;
+</span><b style="">-o <span style="">&nbsp;</span>-i</b><span style="">&nbsp;
+</span><i style="">mmp2_partial_r_07_part.log</i><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The QM
+region and all of the moving part of system are
+extracted along the optimization path with flag <b style="">-g <span style="">&nbsp;</span>-l </b><i style="">1</i> <span style="">&nbsp;</span><b style="">-o</b>, and saved to <a href="tutorialfiles/02monitor/mmp2_partial_r_07_partqmmov.xyz.txt"><i style="">mmp2_partial_r_07_partqmmov.xyz</i></a><b style="">. <span style="color: rgb(51, 102, 255);"><o:p></o:p></span></b></span></p>
+<p class="TAMainText" style="line-height: 150%; page-break-after: avoid;"><a href="tutorialfiles/02monitor/mmp2_partial_r_07_partqm.xyz.txt"><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">mmp2_partial_r_07_partqm.xyz
+</span></i></a><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">and<i style=""> <a href="tutorialfiles/02monitor/mmp2_partial_r_07_partqmmov.xyz.txt">mmp2_partial_r_07_partqmmov.xyz</a></i>
+are
+relatively small, and can be loaded into visualization software, such
+as VMD
+for quick viewing (Figure S4). Flags <b style="">-l</b>,
+<b style="">-g</b> and their combinations can be
+used to extract structures from ONIOM calculations in many different
+ways.
+Please refer to the manual page of <b style="">oniomlog</b>
+for more details. With these files, the user can quickly check the
+progress of
+a Gaussian ONIOM optimization job.</span></p>
+&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<img style="width: 300px; height: 263px;" alt="Figure S4 a (QM region structure)" src="./TAOpackage_files/FigureS4a_mmp2_partial_r_07_partqm.jpg"> &nbsp; <img style="width: 300px; height: 263px;" alt="Figure S4 b (QM and moving MM region)" src="./TAOpackage_files/FigureS4b_mmp2_partial_r_07_partqmmov.jpg">
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>a.<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>b.</p>
+<p class="VAFigureCaption" style="margin-bottom: 0.0001pt; line-height: 150%; page-break-after: avoid;">Figure
+S4. Structures extracted by <b style="">oniomlog</b>. a) QM region
+only; b) QM
+region and all the atoms that move during the optimization. </p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">III.
+Generate new input files<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">If the user
+needs to create a new Gaussian ONIOM job with
+the optimized geometry from a previous ONIOM job, this can also be done
+using <b style="">oniomlog</b>.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomlog</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-oi <span style="">&nbsp;</span>-t</b>
+<i style="">mmp2_partial_r_07.gjf</i><span style="">&nbsp; </span><b style="">-fo</b> <i style="">mmp2_partial_r_08.gjf</i>
+<span style="">&nbsp;</span><b style="">-i</b>
+<i style="">mmp2_partial_r_07_part.log</i><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The flag <b style="">-oi</b>
+tells the program that a new Gaussian ONIOM input file needs to be
+generated. The
+program uses <a href="tutorialfiles/02monitor/mmp2_partial_r_07.gjf.txt"><i style="">mmp2_partial_r_07.gjf</i></a> as
+a template (after flag <b style="">-t</b>), and
+extracts the last geometry from <a href="tutorialfiles/02monitor/mmp2_partial_r_07_part.log.gz"><i style="">mmp2_partial_r_07_part.log</i></a>
+(after flag <b style="">-i</b>) and generates a new
+Gaussian ONIOM input file <i style=""><a href="tutorialfiles/02monitor/mmp2_partial_r_08.gjf.txt">mmp2_partial_r_08.gjf</a>
+</i>(after flag <b style="">-fo</b>). The flag <b style="">-fn </b><i style="">number</i>
+can be used to generate a new input file from a specific geometry along
+the
+optimization path instead of the last geometry (<i style="">number</i>
+is the step number of the desired geometry along the
+optimization path). Finding an appropriate level of theory and getting
+the geometry
+optimization converged to the appropriate state may involve many rounds
+of
+calculations, and is beyond the scope of this tutorial. With the help
+of this
+toolkit, these calculations can be conducted conveniently and
+efficiently.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Another
+important task in studying a reaction is finding the
+transition state (TS). After obtaining an optimized reactant structure,
+the user
+can modify this structure toward a targeted TS, by conducting a series
+of geometry
+optimizations with key geometric parameters fixed (<a href="tutorialfiles/02monitor/mmp2_partial_TS_01.gjf.txt"><i style="">mmp2_partial_TS_01.gjf</i></a>).
+These fixed geometric parameters are
+usually related to the breaking and forming of chemical bonds. For
+example, in <a href="tutorialfiles/02monitor/mmp2_partial_TS_01.gjf.txt"><i style="">mmp2_partial_TS_01.gjf</i></a>, two bond lengths
+and one bond angle are fixed. The user will find that it is much easier
+to
+manipulate the partial model system than the full size model system.
+Once the
+partially optimized geometry is close enough to the desired TS, it can
+be used
+in a TS optimization. <span style="">&nbsp;</span>There are many
+ways to search for a TS (</span><span style="">please
+refer to</span> Hratchian, H. P.; Schlegel, H. B.; �Finding
+Minima, Transition
+States, and Following Reaction Pathways on Ab Initio Potential Energy
+Surfaces�, in <i>Theory and Applications of Computational
+Chemistry: The First
+40 Years</i>, Elsevier, <b>2005</b>, pg 195-259;<span style="">
+Jensen, F, (1999), <i style="">Introduction
+to Computational Chemistry</i>, Wiley; Wales, D. (2004), </span><i style=""><span style="">Energy Landscapes:
+Applications to Clusters, Biomolecules and Glasses</span></i><span style="">, </span>Cambridge University Press<span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">).
+This topic is beyond the scope of this tutorial.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Sometimes,
+it will take a rather long time to finish an
+ONIOM geometry optimization job. In some cases, a geometry optimization
+job does
+not converge. For example an optimization may cycle between two very
+close
+geometries after many optimization steps, and total energy oscillates
+within a
+very narrow range before the number of allowed optimization steps is
+exceeded. <b style="">oniomlog</b> is particularly useful in this
+case. Long before the Gaussian ONIOM job exits with an error message,
+the user
+can see if the optimization is stuck. When this happens, <b style="">oniomlog</b>
+can be used to check the geometries along the optimization
+and to generate a new Gaussian ONIOM input file with the necessary
+changes for
+another optimization job (for example, using a different level of
+theory, changing
+the maximum step size allowed in geometry optimization, etc.). All of
+these can
+be done using <b style="">oniomlog</b> while the
+current job is still running. To save time and computational cost,
+users are
+encouraged to actively monitor ONIOM optimization jobs. <o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">In the
+present case, the geometry optimization job needed to
+be restarted several times before convergence was achieved. The final
+geometry
+optimization log file is <a href="tutorialfiles/02monitor/mmp2_partial_r_08_final.log.gz"><i style="">mmp2_partial_r_08_final.log</i></a>.
+An ONIOM input file <a href="tutorialfiles/02monitor/mmp2_partial_r_08_final_geom.gjf.txt"><i style="">mmp2_partial_r_08_final_geom.gjf</i></a>
+is generated containing the optimized geometry from <a href="tutorialfiles/02monitor/mmp2_partial_r_08_final.log.gz"><i style="">mmp2_partial_r_08_final.log</i></a>
+using <b style="">oniomlog</b>.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-align: left; text-indent: 9pt; line-height: normal; page-break-after: avoid;" align="left"><b style=""><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomlog
+</span></b><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-oi <span style="">&nbsp;</span>-t</b>
+<i style="">mmp2_partial_r_07.gjf</i> <span style="">&nbsp;</span><b style="">-fo</b> <i style="">mmp2_partial_r_08_final_geom.gjf
+</i><o:p></o:p></span></p>
+<p class="TAMainText" style="text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;&nbsp; </span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="">&nbsp;</span><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-i</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<i style="">mmp2_partial_r_08_final.log</i><o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">To save
+time and computational cost, it is recommended that
+users do not wait until the jobs in this tutorial complete before
+proceeding.
+Using a Gaussian log file with several iterations of geometry
+optimization or
+the Gaussian log file provided in this tutorial is sufficient for the
+rest of
+the tutorial.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">IV. Reset
+optimization flag<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9.35pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">If a user
+wants to reset the optimization
+flags of an ONIOM job, for example, to set all the residues within 7
+� instead
+of 6 � from core region allowed to move during optimization, <b style="">setmvflg</b> can do this easily.<span style="">&nbsp; </span>An
+example of this program is <o:p></o:p></span></p>
+<p class="TAMainText" style="margin-left: 9pt; text-align: left; text-indent: 0in; line-height: normal; page-break-after: avoid;" align="left"><b style=""><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">setmvflg</span></b><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"> <span style="">&nbsp;</span><b style="">-b</b> <span style="">&nbsp;</span><b style="">-i</b> <i style="">mmp2_partial_r_07.gjf</i> <span style="">&nbsp;</span><b style="">-onb</b>
+<i style="">mmp2_partial_r.gjf.onb</i> <span style="">&nbsp;</span><b style="">-resid</b>
+<i style="">corelist.txt</i> <span style="">&nbsp;</span><b style="">-near
+</b><i style="">7</i><b style="">&nbsp;<span style=""> </span>-o
+</b><i style="">mmp2_partial_r_07_newflg.gjf</i><b style=""><o:p></o:p></b></span></p>
+<p class="TAMainText" style="margin: 6pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">setmvflg</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+needs an ONIOM input file, <a href="tutorialfiles/02monitor/mmp2_partial_r_07.gjf.txt"><i style="">mmp2_partial_r_07.gjf</i></a>,
+the ONB file, <a href="tutorialfiles/02monitor/mmp2_partial_r.gjf.onb.txt"><i style="">mmp2_partial_r.gjf.onb</i></a>,
+produced by <b style="">pdb2oniom</b> when the ONIOM
+input file was generated from the PDB file, and a core residue list
+file, <a href="tutorialfiles/02monitor/corelist.txt"><i style="">corelist.txt</i></a>.
+This command resets the
+optimization flags in <a href="tutorialfiles/02monitor/mmp2_partial_r_07.gjf.txt"><i style="">mmp2_partial_r_07.gjf</i></a>.
+All the residues within 7 � of the core region will be allowed to
+move during the
+geometry optimization in <a href="tutorialfiles/02monitor/mmp2_partial_r_07_newflg.gjf.txt"><i style="">mmp2_partial_r_07_newflg.gjf</i></a>.
+<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 6pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The command
+line listed above generates the
+following output.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Use coordinates from file
+mmp2_partial_r.gjf.onb to reset optimization flag.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Reading ONIOM input file
+mmp2_partial_r_07.gjf...<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">There are 2493 atoms in
+file
+mmp2_partial_r_07.gjf. <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Done!<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Reading ONIOM ONB file
+mmp2_partial_r.gjf.onb...<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">There are 2493 atoms in
+file
+mmp2_partial_r.gjf.onb. <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">There are 393 residues in
+file
+mmp2_partial_r.gjf.onb.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Done!<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Output file name is
+mmp2_partial_r_07_newflg.gjf<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">In file
+mmp2_partial_r_07.gjf, there
+are 784 atoms, 89 residues subject to geometry optimization.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">After reset, there are
+1124 atoms,
+132 residues subject to geometry optimization.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Open
+mmp2_partial_r_07_newflg.gjf to
+write new ONIOM input file...<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Successfully wrote
+mmp2_partial_r_07_newflg.gjf file.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The output
+shows that 132 residues (1124 atoms) are allowed
+to move in <a href="tutorialfiles/02monitor/mmp2_partial_r_07_newflg.gjf.txt"><i style="">mmp2_partial_r_07_newflg.gjf</i></a>,
+compared to 89 residues (784 atoms) in <a href="tutorialfiles/02monitor/mmp2_partial_r_07.gjf.txt"><i style="">mmp2_partial_r_07.gjf</i></a>.
+Flag <b style="">&#8209;b</b> tells <b style="">setmvflg</b> to use the
+coordinates from the ONB file to reset the optimization
+flags. Without this flag, <b style="">setmvflg</b>
+will use coordinates from the Gaussian input file to reset the
+optimization
+flags. In either case, the newly generated input file always has the
+same
+coordinates as the given input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></b></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">ONIOM
+Production Calculations<o:p></o:p></span></b></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><st1:place w:st="on"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">I.</span></st1:place><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+Generating input files for the full protein model<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">After
+obtaining appropriate structures in a reaction sequence using a partial
+model
+system, these structures (reactant, TS, product, etc.) need to be
+re-optimized
+using the full protein model. <b style="">transgeom</b>
+was developed for this purpose. This program needs an input file:<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">transgeom</span></b><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+mmp2transgeom.in<o:p></o:p></span></i></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Note
+that no flag is required before the input file, which must be the last
+item in
+the command line. The input file <a href="tutorialfiles/03production/mmp2transgeom.in.txt"><i style="">mmp2transgeom.in</i></a>
+reads<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Modelgjf<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mmp2_partial_r_08_final_geom.gjf <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Modelonb<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>mmp2_partial_r.gjf.onb<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Productiongjf<span style="">&nbsp;&nbsp;&nbsp;
+</span>mmp2_full_r_05.gjf <o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Productiononb<span style="">&nbsp;&nbsp;&nbsp;
+</span>mmp2_full_r.gjf.onb<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">Productioninput<span style="">&nbsp; </span>mmp2_full_r_06.gjf<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Four
+input files are needed and one file will be generated. <a href="tutorialfiles/03production/mmp2_partial_r_08_final_geom.gjf.txt"><i style="">mmp2_partial_r_08_final_geom.gjf</i></a>
+(�Modelgjf�) is the Gaussian ONIOM
+input file for the partial model system. <i style=""><a href="tutorialfiles/03production/mmp2_partial_r.gjf.onb.txt">mmp2_partial_r.gjf.onb</a>
+</i>(�Modelonb�) was produced by <b style="">pdb2oniom</b>
+when the ONIOM input file for the partial model system was generated
+from the
+PDB file. <a href="tutorialfiles/03production/mmp2_full_r_05.gjf.txt"><i style="">mmp2_full_r_05.gjf</i></a>
+(�Productiongjf�)
+is the Gaussian ONIOM input file for the full protein model with
+solvent
+molecules prepared earlier in this tutorial. <a href="tutorialfiles/03production/mmp2_full_r.gjf.onb.txt"><i style="">mmp2_full_r.gjf.onb</i></a>
+(�Productiononb�) was generated by <b style="">pdb2oniom</b>
+when generating the ONIOM
+input file of the full model system from the PDB file. <a href="tutorialfiles/03production/mmp2_full_r_06.gjf.txt"><i style="">mmp2_full_r_06.gjf</i></a>
+(�Productioninput�) is the Gaussian ONIOM input
+for the full system with the optimized geometry from <a href="tutorialfiles/03production/mmp2_partial_r_08_final_geom.gjf.txt"><i style="">mmp2_partial_r_08_final_geom.gjf</i></a>.
+<span style="color: red;"><o:p></o:p></span></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">After
+generating the Gaussian ONIOM input file for the full
+system, the user needs to copy the added MM parameters in the partial
+model
+input file to the full model input file, and make necessary adjustment
+to the
+full model input file similar to those for the partial model input file
+(e.g. charge
+and multiplicity, etc.). Users are also encouraged to check the
+completeness
+and validity of the input file for the full model production run. File <i style=""><a href="tutorialfiles/03production/mmp2_full_r_06.gjf.txt">mmp2_full_r_06.gjf</a>
+</i>is a valid Gaussian
+ONIOM job for the full system. The converged geometry optimization log
+file of the
+full size model is <a href="tutorialfiles/03production/mmp2_full_r_06_final.log.gz"><i style="">mmp2_full_r_06_final.log</i></a>.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">By default,
+program <b style="">transgeom</b>
+takes the atom, atom type, partial charge, moving flag (0 or -1), layer
+setup
+(H, M or L), and coordinate information for those atoms included in the
+partial
+model system if they are different from the given full model input
+file. In
+this way, any changes made in the partial model will automatically be
+carried through
+to the new full model input file. If for any reason a user chooses to
+keep any
+of the information from the full model input file, several flags (<b style="">&#8209;atmp</b>, <b style="">&#8209;chgp</b>, <b style="">&#8209;movep</b>, <b style="">&#8209;layerp</b>, <b style="">&#8209;coordp</b>) can be used to keep
+any of these values from the full
+model input file. Please refer to<i style=""> </i>the
+<b style="">transgeom</b> manual page for more
+details. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">In some
+cases, users may want to take the geometry from a
+full size model and build a partial model. For example, when full
+frequency
+analysis is computationally prohibitive for the full size model, but
+such an
+analysis can be afforded for a partial model. By simply setting the
+full size model
+as �Model� and the partial model as
+�Production� in the input file, <b style="">transgeom</b>
+will extract the
+corresponding portion of the geometry from the full size model and
+build a
+partial model. All other options of <b style="">transgeom</b>
+apply as well.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-bottom: 10pt; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="margin-bottom: 10pt; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="margin-bottom: 10pt; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">II.
+Fit partial charges for new structures<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">For
+different structures in a reaction sequence, it is
+obvious that the MM partial charges of the atoms in the QM region
+change and
+need to be refitted. <b style="">oniomresp</b> was
+developed for this purpose.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;">The
+partial charge refitting procedure used in this tutorial can be
+described as follows. After finishing the geometry optimization using
+the full
+model, the QM region with capping atoms (usually hydrogen) is extracted
+from
+the log file. The extracted structure is subject to a single point QM
+calculation using the Merz-Singh-Kollman scheme<span style=""> for </span>electrostatic
+potential derived charges. The QM single point
+calculation results are used in the Restrained Electrostatic Potential
+(RESP)
+charge fitting program. The fitted partial charges replace the previous
+set of
+partial charges for QM atoms in a new Gaussian ONIOM input file. The
+geometry
+optimization is repeated with newly fitted partial charges for QM
+atoms. This
+whole procedure can be repeated until convergence. Please refer to <a href="http://faculty.smu.edu/ptao/doc/publication/8.pdf"><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Biochemistry</span></i></a><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><a href="http://faculty.smu.edu/ptao/doc/publication/8.pdf">
+<b style="">2009</b>, <i style="">48</i>, 9839-9847</a> for details of
+this procedure. The refitting of
+charges is particularly important for the mechanical embedding scheme
+in ONIOM
+calculations since the electrostatic interactions between the QM region
+and the
+rest of the system are handled at the MM level. <b style="">oniomresp</b>
+has three modes for charge fitting.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">In mode 1,
+the QM region with capping atoms is extracted
+from a Gaussian ONIOM log file and saved to a Gaussian input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomresp</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-m1 </b><span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_full_r_06_final.log</i>
+<span style="">&nbsp;</span><b style="">-o</b>
+<i style="">mmp2_full_r_06_final_4ESP.gjf</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">File <a href="tutorialfiles/03production/mmp2_full_r_06_final.log.gz"><i style="">mmp2_full_r_06_final.log</i></a>
+is the converged log file for the full size model, and <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.gjf.txt"><i style="">mmp2_full_r_06_final_4ESP.gjf</i></a>
+contains the extracted structure.
+Users are recommended to visually check the extracted structure using
+GaussView. With an appropriate level of theory and a suitable
+population
+analysis scheme, a single point calculation is carried out using <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.gjf.txt"><i style="">mmp2_full_r_06_final_4ESP.gjf</i></a>.<span style="">&nbsp; </span>Note
+that geometry optimization should not be
+conducted for this extracted structure, since it is not a minimum as a
+stand-alone
+structure. By default, <b style="">oniomresp</b>
+only extracts the QM region with capping atoms. When an atom list file
+is given
+with the flag <b style="">-list</b>, <b style="">oniomresp</b> can
+extract the corresponding
+atoms from the ONIOM log file and write them to a Gaussian input file.
+Please
+refer to the<i style=""> </i><b style="">oniomresp</b> manual page for
+more details of this option.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The log
+file, <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.log.txt"><i style="">mmp2_full_r_06_final_4ESP.log</i></a>,
+generated from a QM single point calculation using <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.gjf.txt"><i style="">mmp2_full_r_06_final_4ESP.gjf</i></a>&nbsp; used for mode 2
+of program <b style="">oniomresp</b>.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomresp
+</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-m2 <span style="">&nbsp;</span>-#</b>
+<i style="">5 </i><span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_full_r_06_final_4ESP.log
+</i><span style="">&nbsp;</span><b style="">-o</b>
+<i style="">mmp2_full_r_06_final_4ESP_RESP.in</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Flag
+<b style="">-# </b><i style="">5</i> tells <b style="">oniomresp</b>
+there
+are 5 capping atoms. Zero charge constraints are added to these capping
+atoms
+in the RESP input file, <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP_RESP.in.txt"><i style="">mmp2_full_r_06_final_4ESP_RESP.in</i></a>.
+Before using <b style="">resp</b>, from the AMBER
+program package, to do the charge fitting, the electrostatic potential
+needs to
+be extracted from <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.log.txt"><i style="">mmp2_full_r_06_final_4ESP.log</i></a>.
+<b style="">espgen</b>, another program from the
+AMBER program package, can be used for this purpose. The extracted
+electrostatic
+potential is saved to <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.esp.txt"><i style="">mmp2_full_r_06_final_4ESP.esp</i></a>.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">espgen
+</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-i</b> <i style="">mmp2_full_r_06_final_4ESP.log</i><span style="">&nbsp; </span><b style="">-o</b>
+<i style="">mmp2_full_r_06_final_4ESP.esp</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">resp</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+can perform the charge fitting using files generated above.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in 10pt 9pt; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">resp</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-i</b> <i style="">mmp2_full_r_06_final_4ESP_RESP.in</i>
+<span style="">&nbsp;</span><b style="">-o</b> <i style="">mmp2_full_r_06_final_4ESP_RESP.out</i><span style="">&nbsp;&nbsp;</span><b style="">-p</b><span style="">&nbsp;</span><i style="">mmp2_full_r_06_final_4ESP_RESP.pch</i>
+<span style="">&nbsp;</span><b style="">-t</b> <i style="">mmp2_full_r_06_final_4ESP_RESP.qout</i><span style="">&nbsp;&nbsp;</span><b style="">-e</b> <i style="">mmp2_full_r_06_final_4ESP.esp</i>
+<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><a href="tutorialfiles/03production/respfit/mmp2_full_r_06_final_4ESP_RESP.qout.txt"><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">mmp2_full_r_06_final_4ESP_RESP.qout</span></i></a><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+contains the fitted partial charges for the QM atoms. The last five
+(capping) atoms
+have zero partial charges because of the constraints added in <a href="tutorialfiles/03production/respfit/mmp2_full_r_06_final_4ESP_RESP.in.txt"><i style="">mmp2_full_r_06_final_4ESP_RESP.in</i></a>.
+Please refer to the AMBER user manual for more details of <b style="">resp</b>
+usage. The <i style="">qout</i> file
+with the fitted charges reads:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>0.536331 -0.581191<span style="">&nbsp; </span>0.447401<span style="">&nbsp; </span>0.011234<span style="">&nbsp;
+</span>0.246270<span style="">&nbsp; </span>0.020309 -0.742044<span style="">&nbsp; </span>0.488682<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;</span>-0.004958<span style="">&nbsp;
+</span>0.014470<span style="">&nbsp; </span>0.028681<span style="">&nbsp;
+</span>0.763294 -0.902114 -0.792329<span style="">&nbsp; </span>0.594623
+-0.724348<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>0.506225<span style="">&nbsp; </span>0.129609<span style="">&nbsp;
+</span>0.174016<span style="">&nbsp;
+</span>0.001224 -0.604498<span style="">&nbsp; </span>0.328291<span style="">&nbsp; </span>0.627675 -0.754995<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>0.492897<span style="">&nbsp; </span>0.358836<span style="">&nbsp;
+</span>0.132775 -0.151578 -0.646392<span style="">&nbsp; </span>0.291544<span style="">&nbsp;
+</span>0.429922 -0.023872<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>0.268593<span style="">&nbsp; </span>0.096902 -0.283048<span style="">&nbsp; </span>0.096459<span style="">&nbsp;
+</span>0.164431 -0.522630<span style="">&nbsp; </span>0.325696<span style="">&nbsp; </span>0.190850<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>1.325617 -0.668203 -0.647399 -0.724312<span style="">&nbsp;
+</span>0.314251<span style="">&nbsp; </span>0.366800<span style="">&nbsp;
+</span>0.000000<span style="">&nbsp;
+</span>0.000000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><span style="">&nbsp;
+</span>0.000000<span style="">&nbsp; </span>0.000000<span style="">&nbsp;
+</span>0.000000<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Both <b style="">espgen</b> and <b style="">resp</b> are available free of
+charge from
+the AMBER website (<a href="http://ambermd.org/">http://ambermd.org/</a>).<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Since <a href="tutorialfiles/03production/mmp2_full_r_06_final.log.gz"><i style="">mmp2_full_r_06_final.log</i></a>
+is a geometry optimization log file, a new ONIOM input file needs to be
+generated containing the new geometry. This can be done using <b style="">oniomlog</b>.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in 10pt 9.35pt; text-align: left; text-indent: 0in; line-height: normal; page-break-after: avoid;" align="left"><b style=""><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomlog</span></b><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"> <span style="">&nbsp;</span><b style="">-oi <span style="">&nbsp;</span>-t</b>
+<i style="">mmp2_full_r_06.gjf</i>
+<span style="">&nbsp;</span><b style="">-fo</b>
+<i style="">mmp2_full_r_06_final_geom_oldchg.gjf</i><span style="">&nbsp;&nbsp;</span><b style="">-i</b> <i style="">mmp2_full_r_06_final.log</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The
+new partial charges can be added to the ONIOM input file, <a href="tutorialfiles/03production/mmp2_full_r_06_final_geom_oldchg.gjf.txt"><i style="">mmp2_full_r_06_final_geom_oldchg.gjf</i></a>,
+used in mode 3 of <b style="">oniomresp</b>, where the resp charge
+file, <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP_RESP.qout.txt"><i style="">mmp2_full_r_06_final_4ESP_RESP.qout</i></a>, is
+needed. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in 0.0001pt 9.35pt; text-align: left; text-indent: 0in; line-height: normal; page-break-after: avoid;" align="left"><b style=""><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniomresp</span></b><span style="font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"> <span style="">&nbsp;</span><b style="">-m3 <span style="">&nbsp;</span>-g</b>
+<i style="">mmp2_full_r_06_final_geom_oldchg.gjf</i><span style="">&nbsp;&nbsp;</span><b style="">-qin</b> <i style="">mmp2_full_r_06_final_4ESP_RESP.qout</i>
+<span style="">&nbsp;</span><b style="">-o</b>
+<i style="">mmp2_full_r_07.gjf</i><span style="">&nbsp;&nbsp;</span><b style="">-c</b> <i style="">mmp2_full_r_06_07_chgcomp.txt</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><a href="tutorialfiles/03production/mmp2_full_r_07.gjf.txt"><i style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">mmp2_full_r_07.gjf</span></i></a><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+is an ONIOM input file with refitted partial charges. <a href="tutorialfiles/03production/mmp2_full_r_06_07_chgcomp.txt"><i style="">mmp2_full_r_06_07_chgcomp.txt</i></a>
+lists the old and new sets of partial
+charges and atom information for the user�s reference.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Users are
+not limited to RESP charges in
+their studies. Partial charges from any type of population analysis can
+be used
+when appropriate. <b style="">extractcharge</b> can
+extract designated partial charges and save them to a file which can be
+used by
+<b style="">oniomresp</b> in mode 3. Other type of
+partial charges can be used conveniently when there is no covalent bond
+across
+the QM/MM interface since no capping atoms are needed.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">extractcharge
+</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-c1 <span style="">&nbsp;</span>-g</b><span style="">&nbsp; </span><i style="">mmp2_full_r_06_final_4ESP.log </i><span style="">&nbsp;</span><b style="">-o</b> <i style="">mulcharge.txt</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">In this
+example, Mulliken charges are
+extracted from file <a href="tutorialfiles/03production/mmp2_full_r_06_final_4ESP.log.txt"><i style="">mmp2_full_r_06_final_4ESP.log</i></a>
+and saved to <a href="tutorialfiles/03production/mulcharge.txt"><i style="">mulcharge.txt</i></a>.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">By default,
+<b style="">oniomresp</b> assigns partial charges from a given charge
+file to QM
+atoms in sequence. When a map file is given by flag <b style="">-p</b>,
+<b style="">oniomresp</b> assigns
+partial charges to those atoms listed in the map file. Please refer to
+the<i style=""> </i><b style="">oniomresp</b>
+manual page for more details of this option. Flags <b style="">-list</b>
+and <b style="">&#8209;p</b> are useful
+when partial charges of a particular part of the ONIOM system other
+than QM
+region need to be refitted.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">ONIOM
+Results Analysis<o:p></o:p></span></b></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">I.
+Generating a PDB file from
+an ONIOM file<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The results
+of production calculations usually require
+further analysis. For biological system, it is convenient to analyze
+the
+structures in PDB format using visualization software like VMD, UCSF
+Chimera,
+PyMol, etc.. <b style="">oniom2pdb</b> can generate
+a PDB file from Gaussian ONIOM file using a template PDB file. Either a
+log
+file or an input file can be used to generate the PDB file. Two
+examples of
+using <b style="">oniom2pdb</b> are<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniom2pdb
+</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);"><span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_full_r_06_final.log</i>
+<span style="">&nbsp;</span><b style="">-pdb</b>
+<i style="">mmp2_full_r.pdb</i> <span style="">&nbsp;</span><b style="">-o</b>
+<i style="">mmp2_full_r_06_final_log.pdb</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">oniom2pdb</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_full_r_06.gjf
+</i><span style="">&nbsp;</span><b style="">-pdb</b>
+<i style="">mmp2_full_r.pdb</i> <span style="">&nbsp;</span><b style="">-o</b>
+<i style="">mmp2_full_r_06_gjf.pdb</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">In
+these two examples, the PDB file, <a href="tutorialfiles/04analysis/mmp2_full_r.pdb.txt"><i style="">mmp2_full_r.pdb</i></a>,
+used when generating ONIOM input file in the preparation stage is the
+template
+file. When an optimization job log file is specified, the flag <b style="">-n </b><i style="">number</i>
+can be used to choose a particular geometry along the optimization path
+to
+generate the PDB file.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">II.
+Assigning coordinates from
+a PDB file to an ONIOM file<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Many users
+may find that it is easier to manipulate the
+geometry of biomolecules in PDB format than in other formats. <b style="">pdbcrd2oniom</b> can generate a new ONIOM
+input file with coordinates from a given PDB file. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">pdbcrd2oniom</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-g</b> <i style="">mmp2_full_r_06.gjf</i>
+<span style="">&nbsp;</span><b style="">-pdb</b>
+<i style="">mmp2_full_r.pdb</i> <span style="">&nbsp;</span><b style="">-o</b>
+<i style="">mmp2_full_r_06_pdb.gjf</i></span><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 0in; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">pdbcrd2oniom</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">
+needs a Gaussian ONIOM input file, e.g. <a href="tutorialfiles/04analysis/mmp2_full_r_06.gjf.txt"><i style="">mmp2_full_r_06.gjf</i></a>,
+and a PDB file, e.g. <a href="tutorialfiles/04analysis/mmp2_full_r.pdb.txt"><i style="">mmp2_full_r.pdb</i></a>.
+These two files should have exactly the same number and types of atoms
+and in
+the exactly same order.<span style="">&nbsp; </span><b style="">pdbcrd2oniom</b>
+then takes coordinates
+from the PDB file and replaces the coordinates in the Gaussian ONIOM
+input file
+and saves to <a href="tutorialfiles/04analysis/mmp2_full_r_06_pdb.gjf.txt"><i style="">mmp2_full_r_06_pdb.gjf</i></a>. <b style="">pdbcrd2oniom</b>
+is very different from <b style="">pdb2oniom</b>, which reads a PDB
+file,
+assigns an AMBER force field atom type and partial charge to each atom,
+and
+creates a new Gaussian ONIOM input file. <b style="">pdbcrd2oniom</b>,
+on the other hand, reads a PDB file and a Gaussian ONIOM input file,
+takes coordinates
+ONLY from the PDB file and replaces coordinates ONLY in the Gaussian
+ONIOM
+input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Using both <b style="">pdbcrd2oniom</b> and <b style="">oniom2pdb</b>,
+users can easily create a PDB file with the optimized geometry from a
+Gaussian
+ONIOM file using <b style="">oniom2pdb</b>, make
+some changes to the structure in a PDB file using their favorite tools
+(to
+create TS or product, etc.), and then create a new ONIOM input file
+with
+modified coordinates using <b style="">pdbcrd2oniom</b>.<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Please keep
+in mind that PDB files only
+keeps three decimal places per coordinate value. This is less than
+those in
+ONIOM job files (6 decimal places).<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">III.
+Extract Energetic
+Information<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">When
+comparing energies of different structures in a
+reaction sequence, <b style="">gaussiantable</b> can
+automatically extract the ONIOM energy and its components from a series
+of files
+and list them as both absolute and relative values. One example of
+running this
+program reads<o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">gaussiantable</span></b><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;; color: rgb(51, 102, 255);">
+<span style="">&nbsp;</span><b style="">-i</b> <i style="">gaussiantable.in</i>
+<span style="">&nbsp;</span><b style="">-o</b> <i style="">gaussiantable.out</i><o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Two
+Gaussian ONIOM log files, <a href="tutorialfiles/04analysis/01_3_R_Th.log.gz"><i style="">01_3_R_Th.log</i></a>
+and <a href="tutorialfiles/04analysis/02_3_TS_Th.log.gz"><i style="">02_3_TS_Th.log</i></a>,
+are given in <i style="">gaussiantable.in</i>:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"># Example input file for
+gaussiantable<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">#<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">&lt;Label&gt;Example&lt;/Label&gt;<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">&lt;ONIOM&gt;<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">01_3_R_Th.log<span style="">&nbsp;
+</span><o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">02_3_TS_Th.log<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 9pt; font-family: Arial;">&lt;/ONIOM&gt;<o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">All blank
+lines and comment lines starting
+with # are ignored. The list of log files is organized in the block
+defined by
+the <i style="">&lt;ONIOM&gt;</i> and <i style="">&lt;/ONIOM&gt;</i>
+lines. The keyword <i style="">ONIOM</i> tells the program the
+following are
+ONIOM log files. The keyword <i style="">GAUSSIAN</i>
+will be used for regular Gaussian log files in future development. Two
+files
+are listed in this example. An arbitrary number of log files can be
+listed in the
+block. The first file (usually the reactant structure in a reaction
+sequence)
+will be used as the reference values for the relative energies. Each
+input file
+can have an arbitrary number of blocks. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin-top: 10pt; text-indent: 9pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The output
+file <i style="">gaussiantable.out</i> contains the ONIOM energy
+information.<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">=================================================<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">Output for block 1: Example<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">Absolute values in Hartee:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ONIOM Total<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Model High<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Model Low<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Real Low<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Real-Model Low<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">01_3_R_Th.log<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-3861.352671<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-3827.772029<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-0.250204<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-33.830845<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-33.580642<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">02_3_TS_Th.log<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-3861.312040<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-3827.731645<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-0.091761<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-33.672155<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>-33.580395<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">-------------------------------------------------<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">Relative values in
+kcal/mol:<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ONIOM Total<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Model High<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Model Low<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Real Low<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>Real-Model Low<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">01_3_R_Th.log<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.000000<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">02_3_TS_Th.log<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span style="">&nbsp;&nbsp;&nbsp;</span>25.496088<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>25.340972<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>99.424437<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>99.579553<span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>0.155116<o:p></o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="line-height: normal; page-break-after: avoid;"><span style="font-size: 8pt; font-family: Arial;">=================================================<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9.35pt; line-height: normal; page-break-after: avoid;"><span style="font-size: 10pt; font-family: Arial;"><o:p>&nbsp;</o:p></span></p>
+<p class="TAMainText" style="text-indent: 9.35pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">The first
+half has ONIOM energies, and each component is
+listed in its absolute value in hatree. The second half has these
+energies
+listed in relative values in kcal/mol with respect to the first log
+file listed
+in this block. If multiple blocks are given in the input file, the
+output
+blocks are listed in the same format and same order as the blocks
+listed in the
+input file.<o:p></o:p></span></p>
+<p class="TAMainText" style="text-indent: 9.35pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">With this
+program, the final energies from QM/MM study can
+be easily extracted, analyzed and compared. <o:p></o:p></span></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;"><o:p>&nbsp;</o:p></span></b></p>
+<p class="TAMainText" style="margin: 10pt 0in; text-align: left; text-indent: 0in; line-height: 150%; page-break-after: avoid;" align="left"><b style=""><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">Summary<o:p></o:p></span></b></p>
+<p class="TAMainText" style="text-indent: 9.35pt; line-height: 150%; page-break-after: avoid;"><span style="line-height: 150%; font-family: &quot;Times New Roman&quot;;">This
+tutorial describes a general procedure for a QM/MM
+study of a biochemical system using Gaussian and GaussView with the
+help of the
+PERL toolkit TAO. This tutorial is designed for users with some basic
+experience with Gaussian, GaussView and Unix/Linux systems. The TAO
+toolkit is
+distributed free of charge from <a href="http://faculty.smu.edu/ptao/software.html">http://faculty.smu.edu/ptao/software.html</a>.</span></p>
+<br>
+&nbsp;Tao Research Group &copy; 2013-Present all rights reserved&nbsp;
+<br>
+
+
+</body></html>

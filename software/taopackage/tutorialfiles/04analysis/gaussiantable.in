@@ -1,0 +1,8 @@
+# Example input file for gaussiantable
+# 
+
+<Label>Example</Label>
+<ONIOM>
+01_3_R_Th.log  
+02_3_TS_Th.log
+</ONIOM>

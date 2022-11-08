@@ -1,0 +1,76 @@
+Resp charges fitting for mmp2_full_r_06_final_4ESP.log with zero charge on last 5 atoms
+
+ &cntrl
+
+ nmol = 1,
+ ihfree = 1,
+ ioutopt = 1,
+ qwt = 0.0005,
+
+ &end
+    1.0
+Resp charges fitting setup
+    1   51
+    6    0
+    7    0
+    1    0
+    6    0
+    1    0
+    7    0
+    6    0
+    1    0
+    6    0
+    1    0
+    1    0
+    6    0
+    8    0
+    8    0
+    6    0
+    7    0
+    1    0
+    6    0
+    1    0
+    7    0
+    6    0
+    1    0
+    6    0
+    7    0
+    1    0
+    6    0
+    1    0
+    7    0
+    6    0
+    1    0
+   30    0
+    6    0
+    1    0
+    1    0
+   16    0
+    6    0
+    1    0
+    6    0
+    1    0
+    1    0
+   16    0
+    8    0
+    8    0
+    8    0
+    1    0
+    1    0
+    1    0
+    1    0
+    1    0
+    1    0
+    1    0
+    1    0.0
+    1   47
+    1    0.0
+    1   48
+    1    0.0
+    1   49
+    1    0.0
+    1   50
+    1    0.0
+    1   51
+
+
